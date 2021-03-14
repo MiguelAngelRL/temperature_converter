@@ -3,26 +3,26 @@ import './App.css';
 import { NumberInputField } from './components/NumberInputField'
 
 const App: React.FC = () => {
-  const [celsius, setCelsius] = React.useState<number|"">("");
-  const [fahrenheit, setFahrenheit] = React.useState<number|"">("");
+  const [celsius, setCelsius] = React.useState<string>("");
+  const [fahrenheit, setFahrenheit] = React.useState<string>("");
 
   const handleOnChange = (event: any) => {
-    const newValue = Number(event.target.value) || "";
-    let newCelsius: number|""="", newFahrenheit: number|""="";
-    if(newValue) {
+    const newValue = Number.parseFloat(event.target.value);
+    let newCelsius:string="", newFahrenheit:string="";
+    if(newValue.toString()) {
       const origin = event.target.id;
       if(origin==="Celsius") {
-        newCelsius=newValue;
-        newFahrenheit=newValue*2;
+        newCelsius=newValue.toString();
+        newFahrenheit=(newValue*2).toString();
       } else if(origin==="Fahrenheit") {
-        newFahrenheit=newValue;
-        newCelsius=newValue/2;
+        newFahrenheit=newValue.toString();
+        newCelsius=(newValue/2).toString();
       }
     }
     updateTempValues(newCelsius, newFahrenheit);
   }
   
-  const updateTempValues = (newCelsius: number|"", newFahrenheit: number|"") => {
+  const updateTempValues = (newCelsius: string, newFahrenheit: string) => {
     setCelsius(newCelsius);
     setFahrenheit(newFahrenheit);
   }
@@ -32,8 +32,8 @@ const App: React.FC = () => {
       <p>
         Temperature conversion tool
       </p>
-      <NumberInputField handleOnChange={handleOnChange} value={Number(celsius)||""} name="Celsius" step="0.1"/>
-      <NumberInputField handleOnChange={handleOnChange} value={Number(fahrenheit)||""} name="Fahrenheit" step="0.1"/>
+      <NumberInputField handleOnChange={handleOnChange} value={celsius} name="Celsius" step="0.1"/>
+      <NumberInputField handleOnChange={handleOnChange} value={fahrenheit} name="Fahrenheit" step="0.1"/>
     </div>
   );
 }
