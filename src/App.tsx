@@ -1,30 +1,24 @@
 import React from 'react';
 import './App.css';
 import { NumberInputField } from './components/NumberInputField'
+import { getNewValues } from './utils'
 
 const App: React.FC = () => {
   const [celsius, setCelsius] = React.useState<string>("");
   const [fahrenheit, setFahrenheit] = React.useState<string>("");
+  const validation = new RegExp(/^[-]?\d*\.?\d*$/);
 
-  const handleOnChange = (event: any) => {
-    const newValue = Number.parseFloat(event.target.value);
-    let newCelsius:string="", newFahrenheit:string="";
-    if(newValue.toString()) {
-      const origin = event.target.id;
-      if(origin==="Celsius") {
-        newCelsius=newValue.toString();
-        newFahrenheit=(newValue*2).toString();
-      } else if(origin==="Fahrenheit") {
-        newFahrenheit=newValue.toString();
-        newCelsius=(newValue/2).toString();
-      }
-    }
-    updateTempValues(newCelsius, newFahrenheit);
-  }
-  
-  const updateTempValues = (newCelsius: string, newFahrenheit: string) => {
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if(!validation.test(event.target.value))
+          return;
+    const [newCelsius, newFahrenheit] = getNewValues(event.target.id, event.target.value);
     setCelsius(newCelsius);
     setFahrenheit(newFahrenheit);
+  }
+
+  const handleOnFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    setCelsius("");
+    setFahrenheit("");
   }
 
   return (
@@ -32,8 +26,8 @@ const App: React.FC = () => {
       <p>
         Temperature conversion tool
       </p>
-      <NumberInputField handleOnChange={handleOnChange} value={celsius} name="Celsius" step="0.1"/>
-      <NumberInputField handleOnChange={handleOnChange} value={fahrenheit} name="Fahrenheit" step="0.1"/>
+      <NumberInputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={celsius} name="Celsius" step="0.1"/>
+      <NumberInputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={fahrenheit} name="Fahrenheit" step="0.1"/>
     </div>
   );
 }

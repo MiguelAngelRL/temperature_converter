@@ -4,22 +4,23 @@ interface Props {
     value: string;
     name: string;
     step: string;
-    handleOnChange: (e: any) => void;
+    handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleOnFocus: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const NumberInputField: React.FC<Props> = (props) => {
-    const {value, name, step, handleOnChange} = props;
+    const {value, name, step, handleOnChange, handleOnFocus} = props;
 
     return (
         <input 
             style={{marginBottom:10}} 
             value={value} 
             placeholder={`Type ${name} value`} 
-            type="number" 
             id={name} 
             name={name} 
             step={step}
             onChange={handleOnChange}
-            />
+            onFocus={handleOnFocus}
+        />
     )
 }
