@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import { NumberInputField } from './components/NumberInputField'
-import { getNewValues } from './utils'
+import { InputField, MainTitle, InputFieldTitle } from './components';
+import { getNewValues } from './utils';
+import { constants } from './common';
 
 const App: React.FC = () => {
   const [celsius, setCelsius] = React.useState<string>("");
@@ -22,12 +23,16 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="App">
-      <p>
-        Temperature conversion tool
-      </p>
-      <NumberInputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={celsius} name="Celsius" step="0.1"/>
-      <NumberInputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={fahrenheit} name="Fahrenheit" step="0.1"/>
+    <div className='App'>
+      <MainTitle textLiteral={constants.MAIN_TITLE}/>
+      <div>
+        <InputFieldTitle textLiteral={constants.CELSIUS}/>
+        <InputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={celsius} name={constants.CELSIUS}/>
+      </div>
+      <div>
+        <InputFieldTitle textLiteral={constants.FAHRENHEIT}/>
+        <InputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={fahrenheit} name={constants.FAHRENHEIT}/>
+      </div>
     </div>
   );
 }

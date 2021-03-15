@@ -10,6 +10,7 @@ In order to run this app in your machine, do the following:
 3. Run the command **_npm i_** from a terminal to download and install all the necessary dependencies for executing both the application and the tests.
 4. Once everything is installed, run the command **_npm start_** from a terminal, which will launch the app and will open a new window in your default browser to show it. If that window is not automatically opened, you have to navigate to the url **_http://localhost:3000_**.
 5. To use the app, simply type in the Celsius input field or Fahrenheit input field the value you want to convert from, and the result will automatically appear in the other field. Only numbers are allowed, so if you enter an invalid value, the result of the conversion will be an empty field.
+6. If you do not want to install the dependencies to check the application, you can test it on **_https://miguelangelrl.github.io/temperature_converter/public/_**.
 
 ## Available Scripts
 
