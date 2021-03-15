@@ -1,11 +1,11 @@
-import { constants } from '../common';
+import { TemperatureType } from '../common';
 
-export const getNewValues = (origin: string, newValue: string) => {
+export const getNewValues = (origin: TemperatureType, newValue: string): [celsius: string, fahrenheit: string] => {
     let newCelsius: string="", newFahrenheit: string="";
-    if(origin===constants.CELSIUS) {
+    if(origin===TemperatureType.CELSIUS) {
         newCelsius=checkDot(newValue);
         newFahrenheit=convertCelsiusToFahrenheit(newCelsius);
-    } else if(origin===constants.FAHRENHEIT) {
+    } else if(origin===TemperatureType.FAHRENHEIT) {
         newFahrenheit=checkDot(newValue);
         newCelsius=convertFahrenheitToCelsius(newFahrenheit);
     }
