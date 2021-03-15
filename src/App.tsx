@@ -2,22 +2,22 @@ import React from 'react';
 import './App.css';
 import { InputField, MainTitle, InputFieldTitle } from './components';
 import { getNewValues } from './utils';
-import { constants } from './common';
+import { constants, TemperatureType } from './common';
 
 const App: React.FC = () => {
   const [celsius, setCelsius] = React.useState<string>("");
   const [fahrenheit, setFahrenheit] = React.useState<string>("");
   const validation = new RegExp(/^[-]?\d*\.?\d*$/);
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(!validation.test(event.target.value))
+  const handleOnChange = (type: TemperatureType, value: string) => {
+    if(!validation.test(value))
           return;
-    const [newCelsius, newFahrenheit] = getNewValues(event.target.id, event.target.value);
+    const [newCelsius, newFahrenheit] = getNewValues(type, value);
     setCelsius(newCelsius);
     setFahrenheit(newFahrenheit);
   }
 
-  const handleOnFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleOnFocus = () => {
     setCelsius("");
     setFahrenheit("");
   }
@@ -26,12 +26,12 @@ const App: React.FC = () => {
     <div className='App'>
       <MainTitle textLiteral={constants.MAIN_TITLE}/>
       <div>
-        <InputFieldTitle textLiteral={constants.CELSIUS}/>
-        <InputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={celsius} name={constants.CELSIUS}/>
+        <InputFieldTitle textLiteral={TemperatureType.CELSIUS}/>
+        <InputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={celsius} name={TemperatureType.CELSIUS}/>
       </div>
       <div>
-        <InputFieldTitle textLiteral={constants.FAHRENHEIT}/>
-        <InputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={fahrenheit} name={constants.FAHRENHEIT}/>
+        <InputFieldTitle textLiteral={TemperatureType.FAHRENHEIT}/>
+        <InputField handleOnFocus={handleOnFocus} handleOnChange={handleOnChange} value={fahrenheit} name={TemperatureType.FAHRENHEIT}/>
       </div>
     </div>
   );

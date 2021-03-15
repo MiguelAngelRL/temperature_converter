@@ -1,14 +1,18 @@
 import React from 'react';
+import { TemperatureType } from '../common';
 
 interface Props {
     value: string;
-    name: string;
-    handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleOnFocus: (e: React.FocusEvent<HTMLInputElement>) => void;
+    name: TemperatureType;
+    handleOnChange: (type: TemperatureType, value: string) => void;
+    handleOnFocus: () => void;
 }
 
 export const InputField: React.FC<Props> = (props) => {
     const {value, name, handleOnChange, handleOnFocus} = props;
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        handleOnChange(name, e.target.value);
+    };
 
     return (
         <input 
@@ -18,7 +22,7 @@ export const InputField: React.FC<Props> = (props) => {
             placeholder={`Type ${name} value`} 
             id={name} 
             name={name} 
-            onChange={handleOnChange}
+            onChange={onChange}
             onFocus={handleOnFocus}
         />
     )
